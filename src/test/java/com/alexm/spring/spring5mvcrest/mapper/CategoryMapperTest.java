@@ -1,7 +1,7 @@
 package com.alexm.spring.spring5mvcrest.mapper;
 
 import com.alexm.spring.spring5mvcrest.domain.Category;
-import com.alexm.spring.spring5mvcrest.domain.CategoryDTO;
+import com.alexm.spring.spring5mvcrest.domain.dto.CategoryDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

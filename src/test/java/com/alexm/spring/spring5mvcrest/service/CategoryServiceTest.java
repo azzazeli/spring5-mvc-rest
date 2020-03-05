@@ -1,7 +1,7 @@
 package com.alexm.spring.spring5mvcrest.service;
 
 import com.alexm.spring.spring5mvcrest.domain.Category;
-import com.alexm.spring.spring5mvcrest.domain.CategoryDTO;
+import com.alexm.spring.spring5mvcrest.domain.dto.CategoryDTO;
 import com.alexm.spring.spring5mvcrest.mapper.CategoryMapper;
 import com.alexm.spring.spring5mvcrest.repositories.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;

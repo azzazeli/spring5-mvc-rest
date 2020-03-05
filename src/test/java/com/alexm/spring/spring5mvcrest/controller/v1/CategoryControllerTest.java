@@ -1,6 +1,6 @@
 package com.alexm.spring.spring5mvcrest.controller.v1;
 
-import com.alexm.spring.spring5mvcrest.domain.CategoryDTO;
+import com.alexm.spring.spring5mvcrest.domain.dto.CategoryDTO;
 import com.alexm.spring.spring5mvcrest.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

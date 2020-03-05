@@ -1,4 +1,4 @@
-package com.alexm.spring.spring5mvcrest.domain;
+package com.alexm.spring.spring5mvcrest.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

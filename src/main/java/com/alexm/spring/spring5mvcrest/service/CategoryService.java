@@ -1,6 +1,6 @@
 package com.alexm.spring.spring5mvcrest.service;
 
-import com.alexm.spring.spring5mvcrest.domain.CategoryDTO;
+import com.alexm.spring.spring5mvcrest.domain.dto.CategoryDTO;
 
 import java.util.List;
 

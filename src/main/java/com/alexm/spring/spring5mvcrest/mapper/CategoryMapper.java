@@ -1,7 +1,7 @@
 package com.alexm.spring.spring5mvcrest.mapper;
 
 import com.alexm.spring.spring5mvcrest.domain.Category;
-import com.alexm.spring.spring5mvcrest.domain.CategoryDTO;
+import com.alexm.spring.spring5mvcrest.domain.dto.CategoryDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,7 +1,7 @@
 package com.alexm.spring.spring5mvcrest.controller.v1;
 
-import com.alexm.spring.spring5mvcrest.domain.CategoryDTO;
-import com.alexm.spring.spring5mvcrest.domain.CategoryListDTO;
+import com.alexm.spring.spring5mvcrest.domain.dto.CategoryDTO;
+import com.alexm.spring.spring5mvcrest.domain.dto.CategoryListDTO;
 import com.alexm.spring.spring5mvcrest.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
