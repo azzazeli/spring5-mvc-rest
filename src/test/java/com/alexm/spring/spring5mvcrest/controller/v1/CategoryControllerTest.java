@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
@@ -76,6 +77,7 @@ class CategoryControllerTest {
         mockMvc.perform(get("/api/v1/categories/Fruits")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(jsonPath("$.name", equalTo(NAME))
                 );
     }
