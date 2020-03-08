@@ -10,4 +10,5 @@ import com.alexm.spring.spring5mvcrest.domain.dto.CustomerListDTO;
 public interface CustomerService {
     CustomerListDTO allCustomers();
     CustomerDTO customerById(Long id);
+    CustomerDTO createNewCustomer(CustomerDTO customerDTO);
 }

@@ -7,6 +7,7 @@ import com.alexm.spring.spring5mvcrest.mapper.CustomerMapper;
 import com.alexm.spring.spring5mvcrest.repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -56,5 +59,28 @@ class CustomerServiceImplTest {
         when(repository.findById(ID)).thenReturn(Optional.of(customer));
         final CustomerDTO byId = customerService.customerById(ID);
         assertEquals(ID, byId.getId());
+    }
+
+    @Test
+    void newCustomer() {
+        final long id = 332L;
+        final String paulo = "Paulo";
+        final String dibala = "Dibala";
+
+        ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
+        final Customer customer = new Customer();
+        customer.setId(id);
+        when(repository.save(any(Customer.class))).thenReturn(customer);
+        final CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstname(paulo);
+        customerDTO.setLastname(dibala);
+
+        final CustomerDTO newCustomer = customerService.createNewCustomer(customerDTO);
+
+        verify(repository).save(customerArgumentCaptor.capture());
+        assertEquals(paulo, customerArgumentCaptor.getValue().getFirstName());
+        assertEquals(dibala, customerArgumentCaptor.getValue().getLastName());
+        assertEquals(id, newCustomer.getId());
+        assertEquals("/api/v1/customers/" + id, newCustomer.getCustomerUrl());
     }
 }

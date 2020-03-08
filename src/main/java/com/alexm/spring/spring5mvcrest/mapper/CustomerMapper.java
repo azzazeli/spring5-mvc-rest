@@ -15,7 +15,11 @@ public interface CustomerMapper {
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
     @Mapping(target = "lastname", source = "lastName")
-    @Mapping(target = "firtsname", source = "firstName")
+    @Mapping(target = "firstname", source = "firstName")
     @Mapping(target = "customerUrl", ignore = true)
     CustomerDTO customerToCustomerDTO(Customer customer);
+
+    @Mapping(target = "lastName", source = "lastname")
+    @Mapping(target = "firstName", source = "firstname")
+    Customer customerDTOToCustomer(CustomerDTO dto);
 }

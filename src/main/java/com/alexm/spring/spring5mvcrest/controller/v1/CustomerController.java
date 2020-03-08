@@ -6,9 +6,7 @@ import com.alexm.spring.spring5mvcrest.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author AlexM
@@ -33,5 +31,10 @@ public class CustomerController {
     @GetMapping("{id}")
     public ResponseEntity<CustomerDTO> customerById(@PathVariable Long id) {
         return new ResponseEntity<>(customerService.customerById(id), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO dto) {
+        return new ResponseEntity<>(customerService.createNewCustomer(dto), HttpStatus.CREATED);
     }
 }
