@@ -59,6 +59,7 @@ class CustomerServiceImplTest {
         when(repository.findById(ID)).thenReturn(Optional.of(customer));
         final CustomerDTO byId = customerService.customerById(ID);
         assertEquals(ID, byId.getId());
+        assertEquals("/api/v1/customers/1", byId.getCustomerUrl());
     }
 
     @Test
@@ -82,5 +83,33 @@ class CustomerServiceImplTest {
         assertEquals(dibala, customerArgumentCaptor.getValue().getLastName());
         assertEquals(id, newCustomer.getId());
         assertEquals("/api/v1/customers/" + id, newCustomer.getCustomerUrl());
+    }
+
+    @Test
+    void saveCustomerByDto() {
+        Long id = 22L;
+        final String goodFirst = "GoodFirst";
+        final String goodLast = "GoodLast";
+
+        CustomerDTO dto = new CustomerDTO();
+        dto.setFirstname(goodFirst);
+        dto.setLastname(goodLast);
+
+        Customer customer = new Customer();
+        customer.setLastName(dto.getLastname());
+        customer.setFirstName(dto.getFirstname());
+        customer.setId(id);
+        when(repository.save(any(Customer.class))).thenReturn(customer);
+        final CustomerDTO savedDto = customerService.saveCustomerByDTO(id, dto);
+
+        ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
+        verify(repository).save(customerArgumentCaptor.capture());
+        assertEquals(goodFirst, customerArgumentCaptor.getValue().getFirstName());
+        assertEquals(goodLast, customerArgumentCaptor.getValue().getLastName());
+        assertEquals(id, customerArgumentCaptor.getValue().getId());
+
+        assertEquals(goodFirst, savedDto.getFirstname());
+        assertEquals(goodLast, savedDto.getLastname());
+        assertEquals("/api/v1/customers/" + id, savedDto.getCustomerUrl());
     }
 }

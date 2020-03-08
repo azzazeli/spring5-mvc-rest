@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
-    private final String BASE_API_URL = "/api/v1/customers/";
+    private static final String BASE_API_URL = "/api/v1/customers/";
 
     public CustomerServiceImpl(CustomerRepository repository, CustomerMapper mapper) {
         this.mapper = mapper;
@@ -29,26 +29,37 @@ public class CustomerServiceImpl implements CustomerService {
         return new CustomerListDTO(
                 repository.findAll()
                         .stream()
-                        .map(customer -> {
-                            final CustomerDTO customerDTO = mapper.customerToCustomerDTO(customer);
-                            customerDTO.setCustomerUrl(BASE_API_URL + customer.getId());
-                            return customerDTO;
-                        })
+                        .map(this::mapAndSetBaseUrl)
                         .collect(Collectors.toList())
         );
     }
 
     @Override
     public CustomerDTO customerById(Long id) {
-        return repository.findById(id).map(mapper::customerToCustomerDTO).orElseThrow();
+        return repository.findById(id).map( this::mapAndSetBaseUrl).orElseThrow();
     }
 
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
         final Customer customer = mapper.customerDTOToCustomer(customerDTO);
+        return saveCustomerAndReturnDto(customer);
+    }
+
+    @Override
+    public CustomerDTO saveCustomerByDTO(Long id, CustomerDTO customerDTO) {
+        final Customer customer = mapper.customerDTOToCustomer(customerDTO);
+        customer.setId(id);
+        return saveCustomerAndReturnDto(customer);
+    }
+
+    private CustomerDTO saveCustomerAndReturnDto(Customer customer) {
         final Customer save = repository.save(customer);
-        CustomerDTO returnDto = mapper.customerToCustomerDTO(save);
-        returnDto.setCustomerUrl(BASE_API_URL + save.getId());
-        return returnDto;
+        return mapAndSetBaseUrl(save);
+    }
+
+    private CustomerDTO mapAndSetBaseUrl(Customer customer) {
+        final CustomerDTO customerDTO = mapper.customerToCustomerDTO(customer);
+        customerDTO.setCustomerUrl(BASE_API_URL + customer.getId());
+        return customerDTO;
     }
 }

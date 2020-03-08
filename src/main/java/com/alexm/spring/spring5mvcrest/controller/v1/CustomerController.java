@@ -21,7 +21,6 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-
     @GetMapping
     public ResponseEntity<CustomerListDTO> allCustomers() {
         return new ResponseEntity<>(customerService.allCustomers(), HttpStatus.OK);
@@ -36,5 +35,10 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO dto) {
         return new ResponseEntity<>(customerService.createNewCustomer(dto), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO dto) {
+        return new ResponseEntity<>(customerService.saveCustomerByDTO(id, dto), HttpStatus.OK);
     }
 }
