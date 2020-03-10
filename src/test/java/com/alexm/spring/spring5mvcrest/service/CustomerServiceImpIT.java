@@ -74,6 +74,13 @@ public class CustomerServiceImpIT {
         assertNotEquals(originalLastName, patchCustomer.getLastname());
     }
 
+    @Test
+    void deleteCustomer() {
+        final int size = customerRepository.findAll().size();
+        customerService.deleteCustomer(1L);
+        assertEquals(size - 1, customerRepository.findAll().size());
+    }
+
     private Customer customerById(Long id) {
         return customerRepository.getOne(id);
     }

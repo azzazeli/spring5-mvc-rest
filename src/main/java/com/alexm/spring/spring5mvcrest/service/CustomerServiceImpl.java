@@ -64,6 +64,11 @@ public class CustomerServiceImpl implements CustomerService {
         return mapAndSetBaseUrl(repository.save(customer));
     }
 
+    @Override
+    public void deleteCustomer(Long id) {
+        repository.deleteById(id);
+    }
+
     private CustomerDTO saveCustomerAndReturnDto(Customer customer) {
         final Customer save = repository.save(customer);
         return mapAndSetBaseUrl(save);
