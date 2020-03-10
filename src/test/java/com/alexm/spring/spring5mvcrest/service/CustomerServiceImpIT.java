@@ -50,6 +50,7 @@ public class CustomerServiceImpIT {
         assertEquals(id, patchCustomer.getId());
         assertEquals(roberto, patchCustomer.getFirstname());
         assertEquals(originalLastName, patchCustomer.getLastname());
+        assertEquals("/api/v1/customers/" + id, patchCustomer.getCustomerUrl());
         assertNotEquals(originalFirstName, patchCustomer.getFirstname());
     }
 

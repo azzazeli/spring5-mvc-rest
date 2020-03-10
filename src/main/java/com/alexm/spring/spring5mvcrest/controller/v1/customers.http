@@ -1,3 +1,12 @@
+PATCH http://localhost:8787/api/v1/customers/1
+Content-Type: application/json
+
+{
+  "lastname": "Leonardo"
+}
+
+###
+
 PUT http://localhost:8787/api/v1/customers/1
 Content-Type: application/json
 

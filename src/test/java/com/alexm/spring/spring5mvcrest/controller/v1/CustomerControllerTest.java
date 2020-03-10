@@ -105,6 +105,30 @@ class CustomerControllerTest {
         ;
     }
 
+    @Test
+    void patchCustomer() throws Exception {
+        final String roberto = "Roberto";
+        Long id = 122L;
+        CustomerDTO patch = new CustomerDTO();
+        patch.setFirstname(roberto);
+
+        CustomerDTO returnDto = new CustomerDTO();
+        returnDto.setId(id);
+        returnDto.setFirstname(roberto);
+        returnDto.setLastname("Badjo");
+        returnDto.setCustomerUrl("/api/v1/customers/122");
+        when(customerService.patchCustomer(id, patch)).thenReturn(returnDto);
+
+        mvc.perform(patch("/api/v1/customers/" + id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(patch)))
+        .andDo(MockMvcResultHandlers.print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.firstname", equalTo(roberto)))
+        .andExpect(jsonPath("$.lastname", equalTo(returnDto.getLastname())))
+        .andExpect(jsonPath("$.customerUrl", equalTo("/api/v1/customers/122")))
+        ;
+    }
     private CustomerDTO getReturnDTO(CustomerDTO customerDto) {
         CustomerDTO returnDto = new CustomerDTO();
         returnDto.setLastname(customerDto.getLastname());
