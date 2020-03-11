@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
  * Date: 3/5/20
  **/
 @Controller
-@RequestMapping("/api/v1/customers")
+@RequestMapping(CustomerController.API_URL_V1)
 public class CustomerController {
+    public static final String API_URL_V1 = "/api/v1/customers/";
+
     private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
@@ -25,7 +27,6 @@ public class CustomerController {
     public ResponseEntity<CustomerListDTO> allCustomers() {
         return new ResponseEntity<>(customerService.allCustomers(), HttpStatus.OK);
     }
-
 
     @GetMapping("{id}")
     public ResponseEntity<CustomerDTO> customerById(@PathVariable Long id) {

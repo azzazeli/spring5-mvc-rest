@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.alexm.spring.spring5mvcrest.controller.v1.CustomerController.API_URL_V1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -48,7 +49,7 @@ class CustomerServiceImplTest {
     void allCustomers() {
         final CustomerListDTO customerListDTO = customerService.allCustomers();
         assertEquals(2, customerListDTO.getCustomers().size());
-        assertEquals("/api/v1/customers/1", customerListDTO.getCustomers().get(0).getCustomerUrl());
+        assertEquals(API_URL_V1 + "1", customerListDTO.getCustomers().get(0).getCustomerUrl());
     }
 
     @Test
@@ -59,7 +60,7 @@ class CustomerServiceImplTest {
         when(repository.findById(ID)).thenReturn(Optional.of(customer));
         final CustomerDTO byId = customerService.customerById(ID);
         assertEquals(ID, byId.getId());
-        assertEquals("/api/v1/customers/1", byId.getCustomerUrl());
+        assertEquals(API_URL_V1 + "1", byId.getCustomerUrl());
     }
 
     @Test
@@ -82,7 +83,7 @@ class CustomerServiceImplTest {
         assertEquals(paulo, customerArgumentCaptor.getValue().getFirstName());
         assertEquals(dibala, customerArgumentCaptor.getValue().getLastName());
         assertEquals(id, newCustomer.getId());
-        assertEquals("/api/v1/customers/" + id, newCustomer.getCustomerUrl());
+        assertEquals(API_URL_V1 + id, newCustomer.getCustomerUrl());
     }
 
     @Test
@@ -110,6 +111,6 @@ class CustomerServiceImplTest {
 
         assertEquals(goodFirst, savedDto.getFirstname());
         assertEquals(goodLast, savedDto.getLastname());
-        assertEquals("/api/v1/customers/" + id, savedDto.getCustomerUrl());
+        assertEquals(API_URL_V1 + id, savedDto.getCustomerUrl());
     }
 }

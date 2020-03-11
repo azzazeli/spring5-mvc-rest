@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+import static com.alexm.spring.spring5mvcrest.controller.v1.CustomerController.API_URL_V1;
+
+
 /**
  * @author AlexM
  * Date: 3/5/20
@@ -17,7 +20,6 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
-    private static final String BASE_API_URL = "/api/v1/customers/";
 
     public CustomerServiceImpl(CustomerRepository repository, CustomerMapper mapper) {
         this.mapper = mapper;
@@ -76,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerDTO mapAndSetBaseUrl(Customer customer) {
         final CustomerDTO customerDTO = mapper.customerToCustomerDTO(customer);
-        customerDTO.setCustomerUrl(BASE_API_URL + customer.getId());
+        customerDTO.setCustomerUrl(API_URL_V1 + customer.getId());
         return customerDTO;
     }
 }

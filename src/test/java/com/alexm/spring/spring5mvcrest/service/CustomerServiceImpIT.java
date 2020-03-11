@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import static com.alexm.spring.spring5mvcrest.controller.v1.CustomerController.API_URL_V1;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -50,7 +51,7 @@ public class CustomerServiceImpIT {
         assertEquals(id, patchCustomer.getId());
         assertEquals(roberto, patchCustomer.getFirstname());
         assertEquals(originalLastName, patchCustomer.getLastname());
-        assertEquals("/api/v1/customers/" + id, patchCustomer.getCustomerUrl());
+        assertEquals(API_URL_V1 + id, patchCustomer.getCustomerUrl());
         assertNotEquals(originalFirstName, patchCustomer.getFirstname());
     }
 
