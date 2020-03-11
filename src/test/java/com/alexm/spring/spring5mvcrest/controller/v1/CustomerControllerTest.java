@@ -3,6 +3,7 @@ package com.alexm.spring.spring5mvcrest.controller.v1;
 import com.alexm.spring.spring5mvcrest.domain.dto.CustomerDTO;
 import com.alexm.spring.spring5mvcrest.domain.dto.CustomerListDTO;
 import com.alexm.spring.spring5mvcrest.service.CustomerService;
+import com.alexm.spring.spring5mvcrest.service.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -43,7 +44,9 @@ class CustomerControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        mvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .build();
     }
 
     @Test
@@ -138,6 +141,16 @@ class CustomerControllerTest {
         mvc.perform(delete(API_URL_V1 + id).contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
         verify(customerService).deleteCustomer(id);
+    }
+
+    @Test
+    void notFound() throws Exception {
+        final long id = 8885L;
+        when(customerService.customerById(id)).thenThrow(ResourceNotFoundException.class);
+
+        mvc.perform(get(API_URL_V1 + id)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     private CustomerDTO getReturnDTO(CustomerDTO customerDto) {

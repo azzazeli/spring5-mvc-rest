@@ -39,3 +39,8 @@ Accept: application/json
 
 ###
 
+GET http://localhost:8787/api/v1/customers/134444
+Accept: application/json
+
+###
+

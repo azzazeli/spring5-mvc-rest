@@ -38,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO customerById(Long id) {
-        return repository.findById(id).map( this::mapAndSetBaseUrl).orElseThrow();
+        return repository.findById(id).map( this::mapAndSetBaseUrl).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
